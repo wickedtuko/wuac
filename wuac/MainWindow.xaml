@@ -9,6 +9,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
+                <MenuItem Header="_Connect" Click="mnuConnect_Click"></MenuItem>
                 <MenuItem Header="E_xit" Click="mnuExit_Click"></MenuItem>
             </MenuItem>
         </Menu>
