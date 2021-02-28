@@ -12,6 +12,11 @@
                 <MenuItem Header="_Connect" Click="mnuConnect_Click"></MenuItem>
                 <MenuItem Header="E_xit" Click="mnuExit_Click"></MenuItem>
             </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Command="Cut" />
+                <MenuItem Command="Copy" />
+                <MenuItem Command="Paste" />
+            </MenuItem>            
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
