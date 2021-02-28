@@ -10,30 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace wuac
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Connect.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Connect : Window
     {
-        public MainWindow()
+        public Connect()
         {
             InitializeComponent();
-        }
-
-        private void mnuExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void mnuConnect_Click(object sender, RoutedEventArgs e)
-        {
-            var c = new Connect();
-            c.ShowDialog();
         }
     }
 }
