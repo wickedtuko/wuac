@@ -33,6 +33,7 @@ namespace wuac
         private void mnuConnect_Click(object sender, RoutedEventArgs e)
         {
             var c = new Connect();
+            c.Owner = this;
             c.ShowDialog();
             tbStatus.Text = c.txtURL.Text;
         }

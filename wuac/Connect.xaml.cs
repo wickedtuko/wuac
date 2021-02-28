@@ -22,6 +22,7 @@ namespace wuac
         public Connect()
         {
             InitializeComponent();
+            //WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
 
         private void btnConnect_Click(object sender, RoutedEventArgs e)
