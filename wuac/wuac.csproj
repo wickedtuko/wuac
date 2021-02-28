@@ -1,9 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <Version>0.0.1</Version>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <StartupObject>wuac.App</StartupObject>
+    <Copyright>Copyright © 2021 Tuko Tech</Copyright>
+    <Description>Wicked OPC UA Client</Description>
   </PropertyGroup>
 
 </Project>
