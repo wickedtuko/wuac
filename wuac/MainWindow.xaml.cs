@@ -34,6 +34,7 @@ namespace wuac
         {
             var c = new Connect();
             c.ShowDialog();
+            tbStatus.Text = c.txtURL.Text;
         }
     }
 }

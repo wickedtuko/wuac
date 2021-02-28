@@ -23,5 +23,10 @@ namespace wuac
         {
             InitializeComponent();
         }
+
+        private void btnConnect_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
