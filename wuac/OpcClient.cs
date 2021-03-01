@@ -114,7 +114,7 @@ namespace wuac
             {
                 ApplicationName = "UA Core Sample Client",
                 ApplicationType = ApplicationType.Client,
-                ConfigSectionName = Utils.IsRunningOnMono() ? "Opc.Ua.MonoSampleClient" : "Opc.Ua.SampleClient"
+                ConfigSectionName = "Wicked.Opc.Ua.Client"
             };
 
             // load the application configuration.
