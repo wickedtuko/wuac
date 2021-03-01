@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace wuac
         string nodeIdFile = "";
         bool autoAccept = true;
         OpcClient client;
+        static ObservableCollection<MessageData> messages = new ObservableCollection<MessageData>();
 
         bool connected = false;
 
@@ -33,6 +35,7 @@ namespace wuac
         public MainWindow()
         {
             InitializeComponent();
+            dgMessage.ItemsSource = messages;
         }
 
         private void mnuExit_Click(object sender, RoutedEventArgs e)
@@ -49,7 +52,30 @@ namespace wuac
             nodeIdToSubscribe = "TESTMOD2/SSGN1/OUT.CV";
             endpointURL = "opc.tcp://M1:9409/DvOpcUaServer";
             client = new OpcClient(endpointURL, nodeIdToSubscribe, nodeIdFile, autoAccept, 0);
+            client.MessageRecieved += OnMessage;
             client.Run();
         }
+
+        static void OnMessage(object sender, MessageEventArgs e)
+        {
+            messages.Add(new MessageData() { Time=e.Time, Message = e.Message });
+            Console.WriteLine("The threshold of {0} was reached at {1}.", e.Time, e.Message);
+        }
     }
+
+
+    class MessageEventArgs : EventArgs
+    {
+        public DateTime Time { get; set; }
+
+        public string Message { get; set; }
+    }
+
+    class MessageData
+    {
+        public DateTime Time { get; set; }
+
+        public string Message { get; set; }
+    }
+
 }

@@ -60,17 +60,16 @@ namespace wuac
 
         public void Run()
         {
-            ConsoleClient().Wait();
-            //try
-            //{
-            //    ConsoleClient().Wait();
-            //}
-            //catch (Exception ex)
-            //{
-            //    Utils.Trace("ServiceResultException:" + ex.Message);
-            //    Console.WriteLine("Exception: {0}", ex.Message);
-            //    return;
-            //}
+            try
+            {
+                ConsoleClient().Wait();
+            }
+            catch (Exception ex)
+            {
+                Utils.Trace("ServiceResultException:" + ex.Message);
+                Console.WriteLine("Exception: {0}", ex.Message);
+                return;
+            }
 
             quitEvent = new ManualResetEvent(false);
             try
@@ -129,7 +128,12 @@ namespace wuac
                 {
                     string filePath = ApplicationConfiguration.GetFilePathFromAppConfig(application.ConfigSectionName);
                     string msg = $"{e.Message} - {filePath}";
+                    MessageEventArgs args = new MessageEventArgs();
+                    args.Message = msg;
+                    args.Time = DateTime.Now;
+                    OnMessageRecieved(args);
                 }
+                throw;
             }
 
             // check the application certificate.
@@ -348,5 +352,15 @@ namespace wuac
                 }
             }
         }
+
+        protected virtual  void OnMessageRecieved(MessageEventArgs e)
+        {
+            EventHandler<MessageEventArgs> handler = MessageRecieved;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public event EventHandler<MessageEventArgs> MessageRecieved;
     }
 }

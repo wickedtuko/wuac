@@ -32,12 +32,17 @@
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBox AcceptsReturn="True" Text="Data" Grid.Row="0"/>
-            <ListView Name="lvMsg" Height="50" Grid.Row="1">
-                <ListViewItem>Hello</ListViewItem>
-            </ListView>
+            <DataGrid Grid.Row="1" Name="dgMessage"
+                IsReadOnly="True" AutoGenerateColumns="False"
+                Height="100">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="Auto"/>
+                    <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </DockPanel>
 </Window>
