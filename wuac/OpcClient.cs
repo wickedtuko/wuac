@@ -64,10 +64,14 @@ namespace wuac
             {
                 ConsoleClient().Wait();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Utils.Trace("ServiceResultException:" + ex.Message);
-                Console.WriteLine("Exception: {0}", ex.Message);
+                Utils.Trace("ServiceResultException:" + e.Message);
+                MessageEventArgs args = new MessageEventArgs();
+                args.Message = e.Message;
+                args.Time = DateTime.Now;
+                args.Type = MessageCategory.Error;
+                OnMessageRecieved(args);
                 return;
             }
 
@@ -169,7 +173,7 @@ namespace wuac
             var endpointConfiguration = EndpointConfiguration.Create(config);
             var endpoint = new ConfiguredEndpoint(null, selectedEndpoint, endpointConfiguration);
             session = await Session.Create(config, endpoint, false, "OPC UA Console Client - " + System.Environment.MachineName, 60000, new UserIdentity(new AnonymousIdentityToken()), null);
-
+           
             // register keep alive handler
             session.KeepAlive += Client_KeepAlive;
 
@@ -228,7 +232,8 @@ namespace wuac
                 last_node_id = nodeIdToSubscribe;
             }
 
-            list.ForEach(i => i.Notification += OnNotification);
+            //list.ForEach(i => i.Notification += OnNotification);
+            list.ForEach(i => i.Notification += this.Notification);
             subscription.AddItems(list);
 
             Console.WriteLine("7 - Add the subscription to the session.");
@@ -363,5 +368,15 @@ namespace wuac
             }
         }
         public event EventHandler<MessageEventArgs> MessageRecieved;
+
+        protected virtual void OnNotificationRecieved(MonitoredItem item, MonitoredItemNotificationEventArgs e)
+        {
+            MonitoredItemNotificationEventHandler handler = Notification;
+            if (handler != null)
+            {
+                handler(item, e);
+            }
+        }
+        public event MonitoredItemNotificationEventHandler Notification;
     }
 }

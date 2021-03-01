@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Opc.Ua.Client;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -57,12 +58,21 @@ namespace wuac
             }
             client = new OpcClient(endpointURL, nodeIdToSubscribe, nodeIdFile, autoAccept, 0);
             client.MessageRecieved += OnMessage;
+            client.Notification += OnNotification;
             client.Run();
         }
 
         static void OnMessage(object sender, MessageEventArgs e)
         {
             messages.Add(new MessageData() { Time=e.Time, Message = e.Message, Type=e.Type });
+        }
+
+        private static void OnNotification(MonitoredItem item, MonitoredItemNotificationEventArgs e)
+        {
+            foreach (var value in item.DequeueValues())
+            {
+                Console.WriteLine("{0}: {1}, {2}, {3}", item.DisplayName, value.Value, value.SourceTimestamp, value.StatusCode);
+            }
         }
     }
 
