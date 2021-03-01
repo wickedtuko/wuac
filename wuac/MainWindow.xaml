@@ -24,11 +24,20 @@
                 <MenuItem Command="Paste" />
             </MenuItem>            
         </Menu>
-        <StatusBar DockPanel.Dock="Bottom">
+        <StatusBar DockPanel.Dock="Bottom" Height="20">
             <StatusBarItem>
                 <TextBlock Name="tbStatus"  Text="Ready"/>
             </StatusBarItem>
         </StatusBar>
-        <TextBox AcceptsReturn="True" />
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="AUTO"/>
+            </Grid.RowDefinitions>
+            <TextBox AcceptsReturn="True" Text="Data" Grid.Row="0"/>
+            <ListView Name="lvMsg" Height="50" Grid.Row="1">
+                <ListViewItem>Hello</ListViewItem>
+            </ListView>
+        </Grid>
     </DockPanel>
 </Window>
