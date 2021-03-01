@@ -51,6 +51,10 @@ namespace wuac
             tbStatus.Text = c.txtURL.Text;
             nodeIdToSubscribe = "TESTMOD2/SSGN1/OUT.CV";
             endpointURL = "opc.tcp://M1:9409/DvOpcUaServer";
+            if (client is not null)
+            {
+                client.MessageRecieved -= OnMessage; //prevent leak
+            }
             client = new OpcClient(endpointURL, nodeIdToSubscribe, nodeIdFile, autoAccept, 0);
             client.MessageRecieved += OnMessage;
             client.Run();
@@ -59,7 +63,6 @@ namespace wuac
         static void OnMessage(object sender, MessageEventArgs e)
         {
             messages.Add(new MessageData() { Time=e.Time, Message = e.Message });
-            Console.WriteLine("The threshold of {0} was reached at {1}.", e.Time, e.Message);
         }
     }
 
