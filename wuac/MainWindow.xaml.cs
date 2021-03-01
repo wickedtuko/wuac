@@ -62,14 +62,27 @@ namespace wuac
 
         static void OnMessage(object sender, MessageEventArgs e)
         {
-            messages.Add(new MessageData() { Time=e.Time, Message = e.Message });
+            messages.Add(new MessageData() { Time=e.Time, Message = e.Message, Type=e.Type });
         }
     }
 
+    class MessageCategory
+    {
+        private MessageCategory(string value) { Value = value; }
+
+        public string Value { get; set; }
+
+        public static MessageCategory Trace { get { return new MessageCategory("Trace"); } }
+        public static MessageCategory Debug { get { return new MessageCategory("Debug"); } }
+        public static MessageCategory Info { get { return new MessageCategory("Info"); } }
+        public static MessageCategory Warning { get { return new MessageCategory("Warning"); } }
+        public static MessageCategory Error { get { return new MessageCategory("Error"); } }
+    }
 
     class MessageEventArgs : EventArgs
     {
         public DateTime Time { get; set; }
+        public MessageCategory Type { get; set; }
 
         public string Message { get; set; }
     }
@@ -77,7 +90,7 @@ namespace wuac
     class MessageData
     {
         public DateTime Time { get; set; }
-
+        public MessageCategory Type { get; set; }
         public string Message { get; set; }
     }
 

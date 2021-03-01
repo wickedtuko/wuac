@@ -40,6 +40,7 @@
                 Height="100">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="Auto"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type.Value}" Width="Auto"/>
                     <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>

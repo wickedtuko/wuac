@@ -131,6 +131,7 @@ namespace wuac
                     MessageEventArgs args = new MessageEventArgs();
                     args.Message = msg;
                     args.Time = DateTime.Now;
+                    args.Type = MessageCategory.Error;
                     OnMessageRecieved(args);
                 }
                 throw;
