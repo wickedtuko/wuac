@@ -11,4 +11,8 @@
     <Description>Wicked OPC UA Client</Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Client" Version="1.4.365.23" />
+  </ItemGroup>
+
 </Project>
