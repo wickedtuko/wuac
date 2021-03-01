@@ -20,6 +20,14 @@ namespace wuac
     /// </summary>
     public partial class MainWindow : Window
     {
+        string endpointURL = "";
+        string nodeIdToSubscribe = "";
+        string nodeIdFile = "";
+        bool autoAccept = true;
+        OpcClient client;
+
+        bool connected = false;
+
         public static RoutedCommand ConnectCmd = new RoutedCommand();
 
         public MainWindow()
@@ -38,6 +46,10 @@ namespace wuac
             c.Owner = this;
             c.ShowDialog();
             tbStatus.Text = c.txtURL.Text;
+            nodeIdToSubscribe = "TESTMOD2/SSGN1/OUT.CV";
+            endpointURL = "opc.tcp://M1:9409/DvOpcUaServer";
+            client = new OpcClient(endpointURL, nodeIdToSubscribe, nodeIdFile, autoAccept, 0);
+            client.Run();
         }
     }
 }
