@@ -6,10 +6,16 @@
         xmlns:local="clr-namespace:wuac"
         mc:Ignorable="d"
         Title="Wicked OPC UA client" Height="450" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.ConnectCmd}" Executed="ConnectCommandBinding_Executed"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="G" Modifiers="Control" Command="{x:Static local:MainWindow.ConnectCmd}" />
+    </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Connect" Click="mnuConnect_Click"></MenuItem>
+                <MenuItem Header="_Connect" Command="{x:Static local:MainWindow.ConnectCmd}" InputGestureText="Ctrl+G"/>
                 <MenuItem Header="E_xit" Click="mnuExit_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Edit">

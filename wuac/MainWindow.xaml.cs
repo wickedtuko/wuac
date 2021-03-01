@@ -20,6 +20,8 @@ namespace wuac
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static RoutedCommand ConnectCmd = new RoutedCommand();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace wuac
             this.Close();
         }
 
-        private void mnuConnect_Click(object sender, RoutedEventArgs e)
+        private void ConnectCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var c = new Connect();
             c.Owner = this;
