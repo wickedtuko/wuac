@@ -5,15 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wuac"
         mc:Ignorable="d"
-        Title="Connect" Height="60" Width="400"
+        Title="Connect" Height="52" Width="400"
         WindowStartupLocation="CenterOwner"
         >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <TextBox Grid.Column="0" Name="txtURL"   Text="opc.tcp://localhost/server"></TextBox>
-        <Button Grid.Column="1" Content="Connect" Click="btnConnect_Click"></Button>
+        <Button Grid.Column="1" Content="Connect" Click="btnConnect_Click" IsDefault="True" />
+        <Button Grid.Column="2" Content="Cancel" Click="btnCancel_Click" IsCancel="True"></Button>
     </Grid>
 </Window>
