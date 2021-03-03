@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace wuac
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         string endpointURL = "";
         string nodeIdToSubscribe = "";
@@ -32,11 +33,31 @@ namespace wuac
         bool connected = false;
 
         public static RoutedCommand ConnectCmd = new RoutedCommand();
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private string _dataValues;
+        public string DataValues {
+            get { return _dataValues; }
+            set { 
+                if (value != _dataValues)
+                {
+                    _dataValues = value;
+                    OnPropertyChanged(nameof(DataValues));
+                }
+            } 
+        }
 
         public MainWindow()
         {
             InitializeComponent();
             dgMessage.ItemsSource = messages;
+            DataValues = "Init";
         }
 
         private void mnuExit_Click(object sender, RoutedEventArgs e)
@@ -50,7 +71,7 @@ namespace wuac
             c.Owner = this;
             c.ShowDialog();
             tbStatus.Text = c.txtURL.Text;
-            nodeIdToSubscribe = "TESTMOD2/SSGN1/OUT.CV";
+            nodeIdToSubscribe = "ns=2;s=0:TESTMOD2/SGGN1/OUT.CV";
             endpointURL = "opc.tcp://M1:9409/DvOpcUaServer";
             if (client is not null)
             {
@@ -67,10 +88,11 @@ namespace wuac
             messages.Add(new MessageData() { Time=e.Time, Message = e.Message, Type=e.Type });
         }
 
-        private static void OnNotification(MonitoredItem item, MonitoredItemNotificationEventArgs e)
+        private void OnNotification(MonitoredItem item, MonitoredItemNotificationEventArgs e)
         {
             foreach (var value in item.DequeueValues())
             {
+                DataValues = $"{item.ResolvedNodeId}:{value.SourceTimestamp}:{value.StatusCode}:{value.Value}";
                 Console.WriteLine("{0}: {1}, {2}, {3}", item.DisplayName, value.Value, value.SourceTimestamp, value.StatusCode);
             }
         }

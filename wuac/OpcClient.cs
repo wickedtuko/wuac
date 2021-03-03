@@ -75,36 +75,36 @@ namespace wuac
                 return;
             }
 
-            quitEvent = new ManualResetEvent(false);
-            try
-            {
-                Console.CancelKeyPress += (sender, eArgs) =>
-                {
-                    quitEvent.Set();
-                    eArgs.Cancel = true;
-                };
-            }
-            catch
-            {
-            }
+            //quitEvent = new ManualResetEvent(false);
+            //try
+            //{
+            //    Console.CancelKeyPress += (sender, eArgs) =>
+            //    {
+            //        quitEvent.Set();
+            //        eArgs.Cancel = true;
+            //    };
+            //}
+            //catch
+            //{
+            //}
 
-            // wait for timeout or Ctrl-C
-            quitEvent.WaitOne(clientRunTime);
+            //// wait for timeout or Ctrl-C
+            //quitEvent.WaitOne(clientRunTime);
 
-            // return error conditions
-            if (session.KeepAliveStopped)
-            {
-                exitCode = ExitCode.ErrorNoKeepAlive;
-                return;
-            }
+            //// return error conditions
+            //if (session.KeepAliveStopped)
+            //{
+            //    exitCode = ExitCode.ErrorNoKeepAlive;
+            //    return;
+            //}
 
-            if (sw != null)
-            {
-                sw.Close();
-                sw.Dispose();
-            }
+            //if (sw != null)
+            //{
+            //    sw.Close();
+            //    sw.Dispose();
+            //}
 
-            exitCode = ExitCode.Ok;
+            //exitCode = ExitCode.Ok;
         }
 
         public static ExitCode ExitCode { get => exitCode; }

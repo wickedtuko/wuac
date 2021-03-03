@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wuac"
         mc:Ignorable="d"
-        Title="Wicked OPC UA client" Height="450" Width="800">
+        Title="Wicked OPC UA client" Height="450" Width="800"
+        Name="window"
+        >
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static local:MainWindow.ConnectCmd}" Executed="ConnectCommandBinding_Executed"/>
     </Window.CommandBindings>
@@ -34,7 +36,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBox AcceptsReturn="True" Text="Data" Grid.Row="0"/>
+            <TextBox AcceptsReturn="True" Text="{Binding Path=DataValues, UpdateSourceTrigger=PropertyChanged, ElementName=window}" d:Text="Hello world" Grid.Row="0" Name="txtData" FontFamily="Consolas"/>
             <DataGrid Grid.Row="1" Name="dgMessage"
                 IsReadOnly="True" AutoGenerateColumns="False"
                 Height="100">
