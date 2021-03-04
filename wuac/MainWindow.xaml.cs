@@ -29,6 +29,7 @@ namespace wuac
         bool autoAccept = true;
         OpcClient client;
         static ObservableCollection<MessageData> messages = new ObservableCollection<MessageData>();
+        OpcUaNodeItem root = new OpcUaNodeItem() { Title = "Root" };
 
         bool connected = false;
 
@@ -58,6 +59,13 @@ namespace wuac
             InitializeComponent();
             dgMessage.ItemsSource = messages;
             DataValues = "Init";
+
+            OpcUaNodeItem childItem1 = new OpcUaNodeItem() { Title = "Child item #1" };
+            childItem1.Items.Add(new OpcUaNodeItem() { Title = "Child item #1.1" });
+            childItem1.Items.Add(new OpcUaNodeItem() { Title = "Child item #1.2" });
+            root.Items.Add(childItem1);
+            root.Items.Add(new OpcUaNodeItem() { Title = "Child item #2" });
+            tvOpcUaNode.Items.Add(root);
         }
 
         private void mnuExit_Click(object sender, RoutedEventArgs e)
