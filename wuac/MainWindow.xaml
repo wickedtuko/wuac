@@ -34,12 +34,15 @@
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="3" />
+                <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <TextBox AcceptsReturn="True" Text="{Binding Path=DataValues, UpdateSourceTrigger=PropertyChanged, ElementName=window}" d:Text="Hello world" Grid.Row="0" Name="txtData" FontFamily="Consolas"/>
-            <DataGrid Grid.Row="1" Name="dgMessage"
+            <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" />
+            <DataGrid Grid.Row="2" Name="dgMessage"
                 IsReadOnly="True" AutoGenerateColumns="False"
-                Height="100">
+                VerticalAlignment="Stretch"
+                >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="Auto"/>
                     <DataGridTextColumn Header="Type" Binding="{Binding Type.Value}" Width="Auto"/>
